@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.lewagon.com
+
+Copyright (c) 2026 by anonymous (https://jsbin.lewagon.com/mapumelizu/1/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<script>try{Object.defineProperty(window,'location',{writable:false,configurable:false,value:Object.freeze({...window.location,assign:()=>{},replace:()=>{}})})}catch(e){}</script>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แบบฝึกหัดออนไลน์: Hospital dan Klinik</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Prompt', sans-serif;
+            background-color: #f0fdf4;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-800 flex flex-col pb-12">
+
+    <!-- Header -->
+    <header class="bg-teal-700 text-white shadow-lg py-6 px-4">
+        <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+                <span class="bg-teal-800 text-teal-200 text-xs font-semibold px-3 py-1 rounded-full border border-teal-600">LEMBARAN KERJA ONLINE</span>
+                <h1 class="text-2xl md:text-3xl font-bold flex items-center gap-3 mt-1">
+                    <i class="fa-solid fa-hospital-user"></i> Hospital dan Klinik
+                </h1>
+                <p class="text-teal-100 text-sm mt-1">แบบฝึกหัดปฏิสัมพันธ์ภาษามลายู หมวดโรงพยาบาลและคลินิก</p>
+            </div>
+            <div class="bg-teal-800/80 p-3 rounded-xl border border-teal-500/30 text-right min-w-[160px]">
+                <div class="text-xs text-teal-200">คะแนนรวม</div>
+                <div class="text-2xl font-bold text-yellow-300" id="score-display">0 / 25</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Student Info Card -->
+    <main class="max-w-4xl mx-auto w-full p-4 space-y-6 flex-grow">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+            <h2 class="text-base font-bold text-slate-700 mb-4 flex items-center gap-2 border-b pb-2">
+                <i class="fa-solid fa-id-card text-teal-600"></i> ข้อมูลผู้เรียน (Maklumat Pelajar)
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-medium text-slate-600 mb-1">Nama (ชื่อ-สกุล)</label>
+                    <input type="text" id="student-name" placeholder="ระบุชื่อ-นามสกุล" class="w-full p-2.5 border rounded-lg text-sm focus:ring-2 focus:ring-teal-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-600 mb-1">No. Pelajar (รหัสนักศึกษา)</label>
+                    <input type="text" id="student-id" placeholder="ระบุรหัสนักศึกษา" class="w-full p-2.5 border rounded-lg text-sm focus:ring-2 focus:ring-teal-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-600 mb-1">Kumpulan (กลุ่มเรียน)</label>
+                    <input type="text" id="student-group" placeholder="ระบุกลุ่มเรียน" class="w-full p-2.5 border rounded-lg text-sm focus:ring-2 focus:ring-teal-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-600 mb-1">Tarikh (วันที่)</label>
+                    <input type="date" id="student-date" class="w-full p-2.5 border rounded-lg text-sm focus:ring-2 focus:ring-teal-500 outline-none">
+                </div>
+            </div>
+        </div>
+
+        <!-- Bahagian A: Kosa Kata -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+            <div class="border-b pb-3 mb-4">
+                <span class="text-xs font-bold text-teal-600 uppercase tracking-wider">Bahagian A</span>
+                <h3 class="text-lg font-bold text-slate-800">Kosa Kata (จับคู่คำศัพท์)</h3>
+                <p class="text-xs text-slate-500">เลือกคำแปลภาษาไทยให้ถูกต้องตรงกับคำศัพท์ภาษามลายู</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="section-a-container">
+                <!-- Javascript will inject matching inputs -->
+            </div>
+        </div>
+
+        <!-- Bahagian B: Lengkapkan Ayat -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+            <div class="border-b pb-3 mb-4">
+                <span class="text-xs font-bold text-teal-600 uppercase tracking-wider">Bahagian B</span>
+                <h3 class="text-lg font-bold text-slate-800">Lengkapkan Ayat (เติมคำในช่องว่าง)</h3>
+                <div class="mt-2 bg-slate-50 p-2.5 rounded-lg border text-xs text-slate-600 flex flex-wrap gap-2">
+                    <span class="font-bold">ตัวเลือก:</span>
+                    <span class="bg-white px-2 py-0.5 rounded border text-teal-700">doktor</span>
+                    <span class="bg-white px-2 py-0.5 rounded border text-teal-700">pesakit</span>
+                    <span class="bg-white px-2 py-0.5 rounded border text-teal-700">ubat</span>
+                    <span class="bg-white px-2 py-0.5 rounded border text-teal-700">temujanji</span>
+                    <span class="bg-white px-2 py-0.5 rounded border text-teal-700">klinik</span>
+                    <span class="bg-white px-2 py-0.5 rounded border text-teal-700">demam</span>
+                    <span class="bg-white px-2 py-0.5 rounded border text-teal-700">batuk</span>
+                    <span class="bg-white px-2 py-0.5 rounded border text-teal-700">rawatan</span>
+                </div>
+            </div>
+            <div class="space-y-3" id="section-b-container">
+                <!-- Javascript will inject completion items -->
+            </div>
+        </div>
+
+        <!-- Bahagian C: Bina Soalan -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+            <div class="border-b pb-3 mb-4">
+                <span class="text-xs font-bold text-teal-600 uppercase tracking-wider">Bahagian C</span>
+                <h3 class="text-lg font-bold text-slate-800">Bina Soalan (สร้างคำถามจากคำตอบ)</h3>
+                <p class="text-xs text-slate-500">เลือกคำถามภาษามลายูที่เหมาะสมที่สุดสำหรับคำตอบที่กำหนด</p>
+            </div>
+            <div class="space-y-4" id="section-c-container">
+                <!-- Javascript will inject question items -->
+            </div>
+        </div>
+
+        <!-- Bahagian D: Susun Dialog -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+            <div class="border-b pb-3 mb-4">
+                <span class="text-xs font-bold text-teal-600 uppercase tracking-wider">Bahagian D</span>
+                <h3 class="text-lg font-bold text-slate-800">Susun Dialog (เรียงลำดับบทสนทนา)</h3>
+                <p class="text-xs text-slate-500">ใส่ตัวเลข 1 ถึง 6 ในช่อง เพื่อเรียงลำดับบทสนทนาให้ถูกต้องตามลำดับเหตุการณ์</p>
+            </div>
+            <div class="space-y-3" id="section-d-container">
+                <!-- Javascript will inject dialog order items -->
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-end pt-4">
+            <button onclick="resetForm()" class="px-6 py-3 rounded-xl border border-slate-300 font-semibold text-slate-600 hover:bg-slate-100 transition">
+                <i class="fa-solid fa-rotate-left mr-2"></i> รีเซ็ตคำตอบ
+            </button>
+            <button onclick="checkAnswers()" class="px-8 py-3 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold shadow-lg shadow-teal-600/30 transition">
+                <i class="fa-solid fa-check-double mr-2"></i> ส่งแบบฝึกหัดและตรวจคะแนน
+            </button>
+        </div>
+    </main>
+
+    <script>
+        // Data Structures
+        const vocabA = [
+            { id: 1, word: "Hospital", target: "โรงพยาบาล" },
+            { id: 2, word: "Jururawat", target: "พยาบาล" },
+            { id: 3, word: "Pesakit", target: "ผู้ป่วย" },
+            { id: 4, word: "Ubat", target: "ยา" },
+            { id: 5, word: "Rawatan", target: "การรักษา" },
+            { id: 6, word: "Temujanji", target: "นัดหมาย" },
+            { id: 7, word: "Pemeriksaan", target: "การตรวจโรค" },
+            { id: 8, word: "Demam", target: "มีไข้" },
+            { id: 9, word: "Batuk", target: "ไอ" },
+            { id: 10, word: "Kad pengenalan", target: "บัตรประชาชน" }
+        ];
+
+        const optionsA = ["โรงพยาบาล", "พยาบาล", "ผู้ป่วย", "ยา", "การรักษา", "นัดหมาย", "การตรวจโรค", "มีไข้", "ไอ", "บัตรประชาชน"];
+
+        const fillB = [
+            { id: 1, text: "Ahmad datang ke ______ untuk mendapatkan rawatan.", ans: "klinik" },
+            { id: 2, text: "______ memeriksa keadaan pesakit.", ans: "doktor" },
+            { id: 3, text: "Pesakit mempunyai ______ dan batuk.", ans: "demam" },
+            { id: 4, text: "Saya mempunyai ______ dengan doktor pada pukul 9.00 pagi.", ans: "temujanji" },
+            { id: 5, text: "Jururawat meminta pesakit menunjukkan kad pengenalan dan kad ______.", ans: "temujanji" },
+            { id: 6, text: "Pesakit pergi ke kaunter farmasi untuk mengambil ______.", ans: "ubat" },
+            { id: 7, text: "Doktor memberikan ______ kepada pesakit.", ans: "rawatan" },
+            { id: 8, text: "______ mengalami sakit tekak sejak dua hari lalu.", ans: "pesakit" }
+        ];
+
+        const optionsB = ["doktor", "pesakit", "ubat", "temujanji", "klinik", "demam", "batuk", "rawatan"];
+
+        const questionsC = [
+            {
+                id: 1,
+                ans: "Jawapan: Saya mengalami demam dan batuk.",
+                choices: ["Apakah masalah kesihatan anda?", "Di manakah anda tinggal?", "Pukul berapakah anda datang?"],
+                correct: "Apakah masalah kesihatan anda?"
+            },
+            {
+                id: 2,
+                ans: "Jawapan: Saya sakit sejak dua hari lalu.",
+                choices: ["Siapakah nama anda?", "Sejak bila anda sakit?", "Adakah anda membawa ubat?"],
+                correct: "Sejak bila anda sakit?"
+            },
+            {
+                id: 3,
+                ans: "Jawapan: Saya datang pada pukul 9.00 pagi.",
+                choices: ["Pukul berapakah anda datang?", "Mengapa anda datang?", "Adakah anda sakit perut?"],
+                correct: "Pukul berapakah anda datang?"
+            },
+            {
+                id: 4,
+                ans: "Jawapan: Ya, saya membawa kad pengenalan.",
+                choices: ["Adakah anda membawa kad pengenalan?", "Apakah gejala anda?", "Di manakah kaunter farmasi?"],
+                correct: "Adakah anda membawa kad pengenalan?"
+            }
+        ];
+
+        const dialogD = [
+            { code: "A", text: "Baik. Sila duduk sementara menunggu giliran.", order: 6 },
+            { code: "B", text: "Selamat pagi. Saya datang untuk mendapatkan rawatan.", order: 1 },
+            { code: "C", text: "Apa masalah kesihatan anda?", order: 2 },
+            { code: "D", text: "Saya mengalami sakit tekak dan demam.", order: 3 },
+            { code: "E", text: "Baik. Saya akan periksa suhu dan tekak anda dulu.", order: 4 },
+            { code: "F", text: "Terima kasih, doktor.", order: 5 }
+        ];
+
+        // Init App
+        document.addEventListener("DOMContentLoaded", () => {
+            renderSectionA();
+            renderSectionB();
+            renderSectionC();
+            renderSectionD();
+            document.getElementById('student-date').valueAsDate = new Date();
+        });
+
+        function renderSectionA() {
+            const container = document.getElementById('section-a-container');
+            container.innerHTML = vocabA.map(v => `
+                <div class="flex items-center justify-between p-3 border rounded-xl bg-slate-50">
+                    <span class="font-bold text-slate-700 text-sm">${v.id}. ${v.word}</span>
+                    <select id="ans-a-${v.id}" class="p-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-teal-500 bg-white">
+                        <option value="">-- เลือกคำแปล --</option>
+                        ${optionsA.map(opt => `<option value="${opt}">${opt}</option>`).join('')}
+                    </select>
+                </div>
+            `).join('');
+        }
+
+        function renderSectionB() {
+            const container = document.getElementById('section-b-container');
+            container.innerHTML = fillB.map(v => `
+                <div class="p-3 border rounded-xl bg-slate-50 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <span class="text-sm text-slate-700">${v.id}. ${v.text}</span>
+                    <select id="ans-b-${v.id}" class="p-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-teal-500 bg-white min-w-[140px]">
+                        <option value="">-- เติมคำ --</option>
+                        ${optionsB.map(opt => `<option value="${opt}">${opt}</option>`).join('')}
+                    </select>
+                </div>
+            `).join('');
+        }
+
+        function renderSectionC() {
+            const container = document.getElementById('section-c-container');
+            container.innerHTML = questionsC.map(q => `
+                <div class="p-4 border rounded-xl bg-slate-50 space-y-2">
+                    <div class="text-xs font-bold text-teal-700 bg-teal-100 inline-block px-2 py-0.5 rounded">${q.ans}</div>
+                    <div class="text-sm font-medium text-slate-700">Soalan (คำถามที่ถูกต้อง):</div>
+                    <div class="space-y-1.5 pl-2">
+                        ${q.choices.map(choice => `
+                            <label class="flex items-center gap-2 text-sm text-slate-600 cursor-pointer">
+                                <input type="radio" name="ans-c-${q.id}" value="${choice}" class="accent-teal-600">
+                                <span>${choice}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderSectionD() {
+            const container = document.getElementById('section-d-container');
+            container.innerHTML = dialogD.map(d => `
+                <div class="flex items-center gap-3 p-3 border rounded-xl bg-slate-50">
+                    <input type="number" min="1" max="6" id="ans-d-${d.code}" placeholder="ลำดับ" class="w-16 p-2 border rounded-lg text-center font-bold text-sm outline-none focus:ring-2 focus:ring-teal-500 bg-white">
+                    <div class="text-sm text-slate-700">
+                        <span class="font-bold text-teal-700 mr-2">${d.code}.</span> ${d.text}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function checkAnswers() {
+            let totalScore = 0;
+
+            // Section A Score (10 pts)
+            vocabA.forEach(v => {
+                const el = document.getElementById(`ans-a-${v.id}`);
+                if (el.value === v.target) {
+                    totalScore++;
+                    el.classList.add('border-emerald-500', 'bg-emerald-50');
+                } else {
+                    el.classList.add('border-red-400', 'bg-red-50');
+                }
+            });
+
+            // Section B Score (8 pts)
+            fillB.forEach(v => {
+                const el = document.getElementById(`ans-b-${v.id}`);
+                if (el.value.toLowerCase() === v.ans.toLowerCase()) {
+                    totalScore++;
+                    el.classList.add('border-emerald-500', 'bg-emerald-50');
+                } else {
+                    el.classList.add('border-red-400', 'bg-red-50');
+                }
+            });
+
+            // Section C Score (4 pts)
+            questionsC.forEach(q => {
+                const selected = document.querySelector(`input[name="ans-c-${q.id}"]:checked`);
+                if (selected && selected.value === q.correct) {
+                    totalScore++;
+                }
+            });
+
+            // Section D Score (3 pts max scaled)
+            let dCorrect = 0;
+            dialogD.forEach(d => {
+                const el = document.getElementById(`ans-d-${d.code}`);
+                if (parseInt(el.value) === d.order) {
+                    dCorrect++;
+                    el.classList.add('border-emerald-500', 'bg-emerald-50');
+                } else {
+                    el.classList.add('border-red-400', 'bg-red-50');
+                }
+            });
+            if (dCorrect === 6) totalScore += 3;
+
+            // Display Score
+            document.getElementById('score-display').innerText = `${totalScore} / 25`;
+            alert(`ตรวจแบบฝึกหัดเรียบร้อย!\nคะแนนที่คุณได้: ${totalScore} จาก 25 คะแนน`);
+        }
+
+        function resetForm() {
+            if (confirm("คุณต้องการล้างคำตอบทั้งหมดเพื่อทำใหม่ใช่หรือไม่?")) {
+                location.reload();
+            }
+        }
+    </script>
+</body>
+</html>
